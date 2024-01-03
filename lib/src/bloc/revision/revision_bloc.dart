@@ -3,6 +3,8 @@ import 'package:naqshrevision/src/model/http_result.dart';
 import 'package:naqshrevision/src/model/revision/revision_model.dart';
 import 'package:rxdart/rxdart.dart';
 
+import '../../model/baselist_model.dart';
+
 class RevisionBloc{
   final Repository _repository = Repository();
   final _fetchRevisionInfo = PublishSubject<RevisionModel>();

@@ -32,4 +32,5 @@ class Repository{
   Future<HttpResult> getRevision() => _apiProvider.getRevision();
   Future<HttpResult> deleteRevision(id) => _apiProvider.deleteRevision(id);
   Future<HttpResult> lockRevision(int id,prov) => _apiProvider.lockRevision(id,prov);
+  Future<HttpResult> skl2BaseRevision() => _apiProvider.skl2BaseRevision();
 }

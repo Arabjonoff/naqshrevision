@@ -148,11 +148,27 @@ class DataBaseHelper{
         '${ProductColumnName.vz} TEXT,'
         '${ProductColumnName.photo} TEXT'
         ')');
+
+    await database.execute('CREATE TABLE skl2Base('
+        'ID INTEGER,'
+        'NAME TEXT,'
+        'PHOTO TEXT,'
+        'ID_TIP TEXT,'
+        'ID_FIRMA INTEGER'
+        ')');
   }
   /// Insert Product
   Future<int> saveProduct(BaseListResult item) async {
     var dbClient = await db;
     var result = dbClient.insert('product', item.toJson());
+    print(await result);
+    return result;
+  }
+
+  /// Insert Product
+  Future<int> saveSkl2Base(BaseListResult item) async {
+    var dbClient = await db;
+    var result = dbClient.insert('skl2Base', item.toJson());
     print(await result);
     return result;
   }

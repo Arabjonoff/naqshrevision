@@ -128,4 +128,10 @@ class ApiProvider{
     };
     return await _patchRequest(url,json.encode(data));
   }
+
+  Future<HttpResult> skl2BaseRevision()async{
+    String url = "${_baseUrl}skl2?DB=002";
+    return await _getRequest(url);
+  }
+
 }
