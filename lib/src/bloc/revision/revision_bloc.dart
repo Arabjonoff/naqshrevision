@@ -16,15 +16,14 @@ class RevisionBloc{
     List<Skl2Result> dataSkl = await _repository.getSkl2Base();
     if(res.isSuccess){
       var data = RevisionModel.fromJson(res.result);
-      for(int i=0;i<dataSkl.length;i++){
-        for(int j=0;j<data.data[0].sklRevTov.length;j++){
-          print(dataSkl[i].id);
-          print(data.data[0].sklRevTov[j].idSkl2);
-          print(dataSkl[i].id == data.data[0].sklRevTov[j].idSkl2);
-          if(dataSkl[i].id == data.data[0].sklRevTov[j].idSkl2){
-            data.data[0].sklRevTov[j].name = dataSkl[i].name;
-            print("data.data[0].sklRevTov[j].name221111111");
-            print(data.data[0].sklRevTov[j].name);
+      if(data.data.isNotEmpty){
+        for(int i=0;i<dataSkl.length;i++){
+          for(int k = 0; k<data.data.length;k++){
+            for(int j=0;j<data.data[k].sklRevTov.length;j++){
+              if(dataSkl[i].id == data.data[k].sklRevTov[j].idSkl2){
+                data.data[k].sklRevTov[j].name = dataSkl[i].name;
+              }
+            }
           }
         }
       }

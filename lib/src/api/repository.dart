@@ -24,6 +24,7 @@ class Repository{
   Future<List<BaseListResult>> getCartList() => _baseHelper.getCartList();
   Future<int> updateCart(BaseListResult item) => _baseHelper.updateCart(item);
   Future<int> deleteCart(BaseListResult item) => _baseHelper.deleteCart(item);
+  Future<void> clearCart() => _baseHelper.clearCart();
 
   /// skl2Base
   Future<List<Skl2Result>> getSkl2Base() => _baseHelper.getSkl2Base();

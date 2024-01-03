@@ -65,7 +65,7 @@ class CenterDialog {
                         onChanged: (i){
                           if(int.parse(data.osoni.toString().replaceAll(".", "")) % 10 == 0){
                             try{
-                              controllerTotal.text = priceUsd==0?priceFormat.format(int.parse(i)*price.toInt()):priceFormatUsd.format(double.parse(i)*price);
+                              controllerTotal.text = priceUsd==0?priceFormat.format(double.parse(i)*price):priceFormatUsd.format(double.parse(i)*price);
                             }catch(_){
                               controllerTotal.text = '';
                             }

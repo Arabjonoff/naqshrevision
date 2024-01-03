@@ -186,14 +186,10 @@ class _AddRevisionScreenState extends State<AddRevisionScreen> {
                                 SizedBox(
                                   width: 100,
                                   child: int.parse(data[index].osoni.toString().replaceAll(".", "")) %10 == 0?Text(
-                                    data[index].osoni.toInt().toString(),
+                                    "${data[index].osoni.toInt()} qoldiq",
                                     textAlign: TextAlign.end,
                                     style: AppStyle.medium(AppColor.black),
-                                  ):Text(
-                                    data[index].osoni.toString(),
-                                      textAlign: TextAlign.end,
-                                      style: AppStyle.medium(AppColor.black),
-                                  ),
+                                  ):Text("${data[index].osoni} qoldiq", textAlign: TextAlign.end, style: AppStyle.medium(AppColor.black),),
                                 ),
                               ],
                             ),
@@ -206,7 +202,7 @@ class _AddRevisionScreenState extends State<AddRevisionScreen> {
                       initialChildSize: 0.3,
                       builder: (BuildContext context, ScrollController scrollController){
                         return ClipRRect(
-                            borderRadius: const BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25)),
+                            borderRadius: const BorderRadius.only(topLeft: Radius.circular(5),topRight: Radius.circular(25)),
                             child: CartScreen(scrollController: scrollController, totalSumUzs: totalSumUzs, totalSumUsd: totalSumUsd, count: count,));
                       })
                 ],

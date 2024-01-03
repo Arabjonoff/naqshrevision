@@ -114,7 +114,7 @@ class SklRevTov {
   String name;
   int idSkl2;
   num soni;
-  int nSoni;
+  num nSoni;
   num fSoni;
   num narhi;
   num narhiS;
@@ -147,7 +147,7 @@ class SklRevTov {
     name: json["NAME"]??'',
     idSkl2: json["ID_SKL2"]??0,
     soni: json["SONI"]??0.0,
-    nSoni: json["N_SONI"],
+    nSoni: json["N_SONI"]??0.0,
     fSoni: json["F_SONI"]??0.0,
     narhi: json["NARHI"]??0.0,
     narhiS: json["NARHI_S"]??0.0,

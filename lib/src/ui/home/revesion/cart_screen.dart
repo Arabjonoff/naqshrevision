@@ -57,8 +57,6 @@ class _CartScreenState extends State<CartScreen> {
                   newTotalUsd += data[i].snarhiS;
                 }
               }
-              print(newTotalUsd);
-              print(newTotalUzs);
               return Column(
                 children: [
                   Expanded(
@@ -84,13 +82,11 @@ class _CartScreenState extends State<CartScreen> {
                                 ],
                               ),
                               child: Container(
-                                margin: EdgeInsets.symmetric(vertical: 5.w),
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 16.w, vertical: 16.h),
                                 width: MediaQuery.of(context).size.width,
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    color: AppColor.card),
+                                    color: index%2==0?AppColor.card:AppColor.grey),
                                 child: Column(
                                   children: [
                                     Row(
@@ -101,17 +97,16 @@ class _CartScreenState extends State<CartScreen> {
                                           child: Text(
                                             data[index].name,
                                             style:
-                                                AppStyle.medium(AppColor.red),
+                                                AppStyle.medium(Colors.red),
                                           ),
                                         ),
                                         SizedBox(
                                           width: 100,
-                                          child: Text(
-                                            data[index].osoni.toString(),
+                                          child:int.parse(data[index].osoni.toString().replaceAll(".", "")) %10 == 0?Text(
+                                            "${data[index].osoni.toInt()} qoldiq",
                                             textAlign: TextAlign.end,
-                                            style:
-                                                AppStyle.medium(AppColor.red),
-                                          ),
+                                            style: AppStyle.medium(AppColor.red),
+                                          ):Text("${data[index].osoni} qoldiq", textAlign: TextAlign.end, style: AppStyle.medium(AppColor.red),),
                                         ),
                                       ],
                                     ),
@@ -124,58 +119,58 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                   GestureDetector(
                     onTap: () async {
-                      CenterDialog.showCircularDialog(context);
-                      List<SklRevTov> sklRevTov = [];
-                      for (int i = 0; i < data.length; i++) {
-                        SklRevTov skl = SklRevTov(
-                          id: data[i].id,
-                          idSkl2: data[i].idSkl2,
-                          soni: double.parse(data[i].vz),
-                          nSoni: data[i].osoni.toInt(),
-                          fSoni: double.parse(data[i].vz) - data[i].osoni,
-                          narhi: data[i].narhi,
-                          narhiS: data[i].narhiS.toDouble(),
-                          snarhi: data[i].snarhi.toInt(),
-                          snarhiS: data[i].snarhiS.toDouble(),
-                          snarhi1: data[i].snarhi.toInt(),
-                          snarhi1S: data[i].snarhi1S.toDouble(),
-                          snarhi2: data[i].snarhi2.toInt(),
-                          snarhi2S: data[i].snarhi2S.toDouble(),
-                          name: data[i].name,
-                        );
-                        sklRevTov.add(skl);
-                      }
-                      RevisionResult revision = RevisionResult(
-                        id: 0,
-                        sana: DateTime.now(),
-                        ndoc: '999',
-                        izoh: '',
-                        sm: widget.totalSumUzs,
-                        smS: widget.totalSumUsd,
-                        idHodim: CacheService.getId(),
-                        pr: 0,
-                        yil: DateTime.now().year.toString(),
-                        oy: DateTime.now().month.toString(),
-                        idSkl: 1,
-                        vaqt: DateTime.now().toString(),
-                        f1: 1,
-                        f2: 2,
-                        nSm: newTotalUzs,
-                        nSmS: newTotalUsd,
-                        st: 1,
-                        sklRevTov: sklRevTov,
-                      );
-                      HttpResult res = await _repository.sendRevision(revision);
-                      if(res.result["status"] == true){
-                        Navigator.pop(context);
-                        Navigator.pop(context);
-                        await revisionBloc.getAllRevision();
-                        await _repository.clearProduct();
-                        await productBloc.getAllProduct('');
-                      }
-                      else{
-                        Navigator.pop(context);
-                      }
+                            CenterDialog.showCircularDialog(context);
+                            List<SklRevTov> sklRevTov = [];
+                            for (int i = 0; i < data.length; i++) {
+                              SklRevTov skl = SklRevTov(
+                                id: data[i].id,
+                                idSkl2: data[i].idSkl2,
+                                soni: double.parse(data[i].vz),
+                                nSoni: data[i].osoni.toDouble(),
+                                fSoni: double.parse(data[i].vz) - data[i].osoni,
+                                narhi: data[i].narhi,
+                                narhiS: data[i].narhiS.toDouble(),
+                                snarhi: data[i].snarhi.toInt(),
+                                snarhiS: data[i].snarhiS.toDouble(),
+                                snarhi1: data[i].snarhi.toInt(),
+                                snarhi1S: data[i].snarhi1S.toDouble(),
+                                snarhi2: data[i].snarhi2.toInt(),
+                                snarhi2S: data[i].snarhi2S.toDouble(),
+                                name: data[i].name,
+                              );
+                              sklRevTov.add(skl);
+                            }
+                            RevisionResult revision = RevisionResult(
+                              id: 0,
+                              sana: DateTime.now(),
+                              ndoc: '999',
+                              izoh: '',
+                              sm: widget.totalSumUzs,
+                              smS: widget.totalSumUsd,
+                              idHodim: CacheService.getId(),
+                              pr: 0,
+                              yil: DateTime.now().year.toString(),
+                              oy: DateTime.now().month.toString(),
+                              idSkl: 1,
+                              vaqt: DateTime.now().toString(),
+                              f1: 1,
+                              f2: 2,
+                              nSm: newTotalUzs,
+                              nSmS: newTotalUsd,
+                              st: 1,
+                              sklRevTov: sklRevTov,
+                            );
+                            HttpResult res = await _repository.sendRevision(revision);
+                            if(res.result["status"] == true){
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                              await revisionBloc.getAllRevision();
+                              await productBloc.getAllProduct('');
+                              await _repository.clearCart();
+                            }
+                            else{
+                              Navigator.pop(context);
+                            }
                     },
                     child: Container(
                       alignment: Alignment.center,

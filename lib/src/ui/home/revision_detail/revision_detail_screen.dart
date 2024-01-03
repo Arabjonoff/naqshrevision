@@ -60,7 +60,7 @@ class _RevisionDetailScreenState extends State<RevisionDetailScreen> {
                             decoration: BoxDecoration(color: AppColor.grey),
                             children: [
                               Text(
-                                "Soni",
+                                "Soni / Kg",
                                 style: AppStyle.medium(AppColor.black),
                               ),
                               Text(
@@ -102,7 +102,7 @@ class _RevisionDetailScreenState extends State<RevisionDetailScreen> {
                             decoration: BoxDecoration(color: AppColor.grey),
                             children: [
                               Text(
-                                "Soni",
+                                "Soni / Kg",
                                 style: AppStyle.medium(AppColor.black),
                               ),
                               Text(
@@ -144,7 +144,7 @@ class _RevisionDetailScreenState extends State<RevisionDetailScreen> {
                             decoration: BoxDecoration(color: AppColor.grey),
                             children: [
                               Text(
-                                "Soni",
+                                "Soni / Kg",
                                 style: AppStyle.medium(AppColor.black),
                               ),
                               Text(
