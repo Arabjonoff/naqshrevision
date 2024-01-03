@@ -9,6 +9,7 @@ import 'package:naqshrevision/src/api/repository.dart';
 import 'package:naqshrevision/src/bloc/barcode/barcode_bloc.dart';
 import 'package:naqshrevision/src/bloc/product/product_bloc.dart';
 import 'package:naqshrevision/src/bloc/revision/revision_bloc.dart';
+import 'package:naqshrevision/src/bloc/skl2Base/skl2_bloc.dart';
 import 'package:naqshrevision/src/dialog/center_dialog.dart';
 import 'package:naqshrevision/src/model/http_result.dart';
 import 'package:naqshrevision/src/model/revision/revision_model.dart';
@@ -33,7 +34,16 @@ class _HomeScreenState extends State<HomeScreen> {
     revisionBloc.getAllRevision();
     productBloc.getAllProduct('');
     barcodeBloc.getBarcodeAll();
+    skl2BaseBloc.getAllSkl2();
     super.initState();
+  }
+  @override
+  void dispose() {
+    revisionBloc.getAllRevision();
+    productBloc.getAllProduct('');
+    barcodeBloc.getBarcodeAll();
+    skl2BaseBloc.getAllSkl2();
+    super.dispose();
   }
   @override
   Widget build(BuildContext context) {

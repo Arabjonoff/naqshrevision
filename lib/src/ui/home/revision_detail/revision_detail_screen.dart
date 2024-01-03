@@ -40,7 +40,7 @@ class _RevisionDetailScreenState extends State<RevisionDetailScreen> {
                 ),
                 backgroundColor: AppColor.card,
                 title: Text(
-                  'name',
+                  widget.data.sklRevTov[index].name,
                   style: AppStyle.medium(AppColor.black),
                 ),
                 expandedCrossAxisAlignment: CrossAxisAlignment.start,

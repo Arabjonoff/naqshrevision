@@ -129,7 +129,7 @@ class _CartScreenState extends State<CartScreen> {
                       for (int i = 0; i < data.length; i++) {
                         SklRevTov skl = SklRevTov(
                           id: data[i].id,
-                          idSkl2: data[i].id,
+                          idSkl2: data[i].idSkl2,
                           soni: double.parse(data[i].vz),
                           nSoni: data[i].osoni.toInt(),
                           fSoni: double.parse(data[i].vz) - data[i].osoni,

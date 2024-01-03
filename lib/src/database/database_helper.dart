@@ -1,5 +1,6 @@
 import 'package:naqshrevision/src/model/barcode/barcode_model.dart';
 import 'package:naqshrevision/src/model/baselist_model.dart';
+import 'package:naqshrevision/src/model/skl2model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -153,7 +154,7 @@ class DataBaseHelper{
         'ID INTEGER,'
         'NAME TEXT,'
         'PHOTO TEXT,'
-        'ID_TIP TEXT,'
+        'ID_TIP INTEGER,'
         'ID_FIRMA INTEGER'
         ')');
   }
@@ -166,7 +167,7 @@ class DataBaseHelper{
   }
 
   /// Insert Product
-  Future<int> saveSkl2Base(BaseListResult item) async {
+  Future<int> saveSkl2Base(Skl2Result item) async {
     var dbClient = await db;
     var result = dbClient.insert('skl2Base', item.toJson());
     print(await result);
@@ -354,6 +355,30 @@ class DataBaseHelper{
     return data;
   }
 
+  /// Get Skl2Base
+  Future<List<Skl2Result>> getSkl2Base() async {
+    var dbClient = await db;
+    List<Map> list = await dbClient.rawQuery('SELECT * FROM skl2Base');
+    List<Skl2Result> data = <Skl2Result>[];
+    for (int i = 0; i < list.length; i++) {
+      Skl2Result skl2result = Skl2Result(
+        id: list[i]["ID"],
+        name: list[i]["NAME"],
+        idTip: list[i]["ID_TIP"],
+        idFirma: list[i]["ID_FIRMA"],
+        photo: list[i]["PHOTO"],
+      );
+      data.add(skl2result);
+    }
+    return data;
+  }
+
+
+  /// Clear Skl2Base
+  Future<void> clearSkl2Base() async {
+    var dbClient = await db;
+    await dbClient.rawQuery('DELETE FROM skl2Base');
+  }
 
   /// Clear Product
   Future<void> clearProduct() async {
@@ -365,6 +390,12 @@ class DataBaseHelper{
   Future<void> clearBarcode() async {
     var dbClient = await db;
     await dbClient.rawQuery("DELETE FROM barcode");
+  }
+
+  /// Clear Cart
+  Future<void> clearCart() async {
+    var dbClient = await db;
+    await dbClient.rawQuery('DELETE FROM cart');
   }
 
   /// Delete Cart
