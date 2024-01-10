@@ -18,10 +18,10 @@ import '../../../theme/fonts.dart';
 
 class CartScreen extends StatefulWidget {
   final int totalSumUzs;
-  final num totalSumUsd,count;
+  final num totalSumUsd,count,oldSummaUzs,oldSummaUsd;
   final ScrollController scrollController;
 
-  const CartScreen({super.key, required this.scrollController, required this.totalSumUzs, required this.totalSumUsd, required this.count});
+  const CartScreen({super.key, required this.scrollController, required this.totalSumUzs, required this.totalSumUsd, required this.count, required this.oldSummaUzs, required this.oldSummaUsd});
 
   @override
   State<CartScreen> createState() => _CartScreenState();
@@ -33,8 +33,7 @@ class _CartScreenState extends State<CartScreen> {
     cartBloc.getCartAll();
     super.initState();
   }
-  int newTotalUzs = 0;
-  double newTotalUsd = 0;
+
   bool isLoading = false;
 
   final Repository _repository = Repository();
@@ -47,18 +46,24 @@ class _CartScreenState extends State<CartScreen> {
           stream: cartBloc.getCartStream,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              newTotalUzs = 0;
-              newTotalUsd = 0;
+              double newTotalUzs = 0;
+              double newTotalUsd = 0;
               var data = snapshot.data!;
               for(int i = 0; i<data.length;i++){
                 if (data[i].snarhi != 0) {
-                  newTotalUzs += data[i].snarhi.toInt();
+                  newTotalUzs = data[i].snarhi.toDouble() +data[i].osoni ;
                 } else {
-                  newTotalUsd += data[i].snarhiS;
+                  newTotalUsd += data[i].snarhiS + data[i].osoni;
                 }
               }
               return Column(
                 children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 5.w),
+                    width: 100,
+                    height: 5,
+                    color: Colors.grey,
+                  ),
                   Expanded(
                     child: ListView.builder(
                         controller: widget.scrollController,
@@ -153,8 +158,8 @@ class _CartScreenState extends State<CartScreen> {
                               oy: DateTime.now().month.toString(),
                               idSkl: 1,
                               vaqt: DateTime.now().toString(),
-                              f1: 1,
-                              f2: 2,
+                              f1: widget.oldSummaUzs,
+                              f2: widget.oldSummaUzs,
                               nSm: newTotalUzs,
                               nSmS: newTotalUsd,
                               st: 1,

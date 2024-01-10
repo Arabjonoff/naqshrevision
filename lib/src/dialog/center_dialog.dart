@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:naqshrevision/src/api/repository.dart';
 import 'package:naqshrevision/src/model/baselist_model.dart';
 import 'package:naqshrevision/src/model/revision/revision_model.dart';
@@ -290,6 +291,59 @@ class CenterDialog {
             ],
           ),
         ),
+      );
+    });
+  }
+
+  static void showLogoutDialog(BuildContext context){
+    showDialog(context: context, builder: (ctx){
+      return AlertDialog(
+        insetPadding: const EdgeInsets.symmetric(horizontal: 14),
+        backgroundColor: AppColor.card,
+        title: Text("Xisobdan chiqish",style: AppStyle.large(AppColor.black),),
+        content: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: 150.w,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(child: Text("Rostan ham xisobdan chiqmoqchimisz?",textAlign: TextAlign.center,style: AppStyle.medium(AppColor.black),)),
+              const Spacer(),
+              Row(
+                children: [
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: (){Navigator.pop(context);},
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 45,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: AppColor.red
+                        ),
+                        child: Text("Yo'q",style: AppStyle.large(AppColor.black),),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 16.w,),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: (){},
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 45,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: AppColor.green
+                        ),
+                        child: Text("Ha",style: AppStyle.large(AppColor.black),),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          )),
       );
     });
   }

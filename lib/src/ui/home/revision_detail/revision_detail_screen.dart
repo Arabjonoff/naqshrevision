@@ -162,13 +162,11 @@ class _RevisionDetailScreenState extends State<RevisionDetailScreen> {
                             style: AppStyle.medium(AppColor.black),
                           ),
                           Text(
-                            priceFormat
-                                .format(widget.data.sklRevTov[index].snarhi),
+                            priceFormat.format(widget.data.sklRevTov[index].snarhi *  widget.data.sklRevTov[index].fSoni),
                             style: AppStyle.medium(AppColor.black),
                           ),
                           Text(
-                            priceFormatUsd
-                                .format(widget.data.sklRevTov[index].snarhiS),
+                            priceFormatUsd.format(widget.data.sklRevTov[index].snarhiS *  widget.data.sklRevTov[index].fSoni),
                             style: AppStyle.medium(AppColor.black),
                           )
                         ]),

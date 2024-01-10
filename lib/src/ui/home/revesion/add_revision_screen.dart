@@ -30,7 +30,7 @@ class _AddRevisionScreenState extends State<AddRevisionScreen> {
     super.initState();
   }
   final Repository _repository =Repository();
-  num price = 0,count = 0;
+  num price = 0,count = 0,oldSummaUzs = 0,oldSummaUsd =0;
   int priceUsd = 0, brocdeId = 0,idPrice = 0;
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,16 @@ class _AddRevisionScreenState extends State<AddRevisionScreen> {
               );
               List<BarcodeResult> barcode = await _repository.getBarcode();
               List<BaseListResult> baseList = await _repository.getProductBase('');
+
               for (int i = 0; i < baseList.length; i++) {
+                price = 0;
+                priceUsd = 0;
+                if (baseList[i].snarhi != 0) {
+                  price = baseList[i].snarhi;
+                } else {
+                  price = baseList[i].snarhiS;
+                  priceUsd = 1;
+                }
                 for (int j = 0; j < barcode.length; j++) {
                   if (scanResult.rawContent == barcode[j].shtr && barcode[j].idSkl2 == baseList[i].idSkl2) {
                     CenterDialog.showCenterDialog(
@@ -186,7 +195,7 @@ class _AddRevisionScreenState extends State<AddRevisionScreen> {
                                 SizedBox(
                                   width: 100,
                                   child: int.parse(data[index].osoni.toString().replaceAll(".", "")) %10 == 0?Text(
-                                    "${data[index].osoni.toInt()} qoldiq",
+                                    "${data[index].rsoni.toInt()} qoldiq",
                                     textAlign: TextAlign.end,
                                     style: AppStyle.medium(AppColor.black),
                                   ):Text("${data[index].osoni} qoldiq", textAlign: TextAlign.end, style: AppStyle.medium(AppColor.black),),
@@ -203,7 +212,7 @@ class _AddRevisionScreenState extends State<AddRevisionScreen> {
                       builder: (BuildContext context, ScrollController scrollController){
                         return ClipRRect(
                             borderRadius: const BorderRadius.only(topLeft: Radius.circular(5),topRight: Radius.circular(25)),
-                            child: CartScreen(scrollController: scrollController, totalSumUzs: totalSumUzs, totalSumUsd: totalSumUsd, count: count,));
+                            child: CartScreen(scrollController: scrollController, totalSumUzs: totalSumUzs, totalSumUsd: totalSumUsd, count: count, oldSummaUzs: oldSummaUzs, oldSummaUsd: oldSummaUsd,));
                       })
                 ],
               );

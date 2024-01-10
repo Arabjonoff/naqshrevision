@@ -50,8 +50,15 @@ class _HomeScreenState extends State<HomeScreen> {
     return  Scaffold(
       backgroundColor: AppColor.background,
       appBar: AppBar(
+        leading: IconButton(onPressed: (){
+        }, icon:  Icon(Icons.account_circle_outlined,color: AppColor.black,)),
         title: const Text("Qayta xisoblangan",style: TextStyle(color: Colors.white),),
         backgroundColor: AppColor.background,
+        actions: [
+          IconButton(onPressed: (){
+            CenterDialog.showLogoutDialog(context);
+          }, icon: const Icon(Icons.logout,color: AppColor.red,))
+        ],
       ),
       body: StreamBuilder<RevisionModel>(
         stream: revisionBloc.getRevisionStream,
@@ -154,8 +161,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text("Ombor summasi:",style: AppStyle.medium(AppColor.black),),
                               Wrap(
                                 children: [
-                                  Text("${priceFormat.format(data[index].sm)} so'm | ",style: AppStyle.medium(AppColor.green),),
-                                  Text("${priceFormat.format(data[index].smS)} \$",style: AppStyle.medium(AppColor.green),),
+                                  Text("${priceFormat.format(data[index].f1)} so'm | ",style: AppStyle.medium(AppColor.green),),
+                                  Text("${priceFormat.format(data[index].f2)} \$",style: AppStyle.medium(AppColor.green),),
                                 ],
                               ),
                               SizedBox(height: 12.h,),
