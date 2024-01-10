@@ -16,6 +16,7 @@ import 'package:naqshrevision/src/model/revision/revision_model.dart';
 import 'package:naqshrevision/src/theme/fonts.dart';
 import 'package:naqshrevision/src/ui/home/revesion/add_revision_screen.dart';
 import 'package:naqshrevision/src/ui/home/revision_detail/revision_detail_screen.dart';
+import 'package:naqshrevision/src/utils/cache.dart';
 
 import '../../theme/colors.dart';
 final priceFormat = NumberFormat("#,##0", "ru");
@@ -50,9 +51,8 @@ class _HomeScreenState extends State<HomeScreen> {
     return  Scaffold(
       backgroundColor: AppColor.background,
       appBar: AppBar(
-        leading: IconButton(onPressed: (){
-        }, icon:  Icon(Icons.account_circle_outlined,color: AppColor.black,)),
-        title: const Text("Qayta xisoblangan",style: TextStyle(color: Colors.white),),
+        centerTitle: false,
+        title: Text(CacheService.getName(),style: const TextStyle(color: Colors.white),),
         backgroundColor: AppColor.background,
         actions: [
           IconButton(onPressed: (){
@@ -161,8 +161,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text("Ombor summasi:",style: AppStyle.medium(AppColor.black),),
                               Wrap(
                                 children: [
-                                  Text("${priceFormat.format(data[index].f1)} so'm | ",style: AppStyle.medium(AppColor.green),),
-                                  Text("${priceFormat.format(data[index].f2)} \$",style: AppStyle.medium(AppColor.green),),
+                                  Text("${priceFormat.format(data[index].sm)} so'm | ",style: AppStyle.medium(AppColor.green),),
+                                  Text("${priceFormatUsd.format(data[index].smS)} \$",style: AppStyle.medium(AppColor.green),),
                                 ],
                               ),
                               SizedBox(height: 12.h,),
@@ -201,6 +201,7 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         }
       ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: (){
           Navigator.push(context, MaterialPageRoute(builder: (ctx){

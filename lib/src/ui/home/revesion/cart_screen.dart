@@ -17,11 +17,10 @@ import '../../../theme/colors.dart';
 import '../../../theme/fonts.dart';
 
 class CartScreen extends StatefulWidget {
-  final int totalSumUzs;
-  final num totalSumUsd,count,oldSummaUzs,oldSummaUsd;
+  final num count,oldSummaUzs,oldSummaUsd;
   final ScrollController scrollController;
 
-  const CartScreen({super.key, required this.scrollController, required this.totalSumUzs, required this.totalSumUsd, required this.count, required this.oldSummaUzs, required this.oldSummaUsd});
+  const CartScreen({super.key, required this.scrollController, required this.count, required this.oldSummaUzs, required this.oldSummaUsd});
 
   @override
   State<CartScreen> createState() => _CartScreenState();
@@ -47,13 +46,17 @@ class _CartScreenState extends State<CartScreen> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               double newTotalUzs = 0;
+              double totalSumUzs = 0;
+              double totalSumUsd = 0;
               double newTotalUsd = 0;
               var data = snapshot.data!;
               for(int i = 0; i<data.length;i++){
                 if (data[i].snarhi != 0) {
-                  newTotalUzs = data[i].snarhi.toDouble() +data[i].osoni ;
+                  newTotalUzs = data[i].snarhi.toDouble() *data[i].osoni ;
+                  totalSumUzs = data[i].snarhi.toDouble() *num.parse(data[i].vz) ;
                 } else {
-                  newTotalUsd += data[i].snarhiS + data[i].osoni;
+                  newTotalUsd += data[i].snarhiS * data[i].osoni;
+                  totalSumUsd = data[i].snarhiS.toDouble() *num.parse(data[i].vz) ;
                 }
               }
               return Column(
@@ -150,16 +153,16 @@ class _CartScreenState extends State<CartScreen> {
                               sana: DateTime.now(),
                               ndoc: '999',
                               izoh: '',
-                              sm: widget.totalSumUzs,
-                              smS: widget.totalSumUsd,
+                              sm: totalSumUzs,
+                              smS: totalSumUsd,
                               idHodim: CacheService.getId(),
                               pr: 0,
                               yil: DateTime.now().year.toString(),
                               oy: DateTime.now().month.toString(),
                               idSkl: 1,
                               vaqt: DateTime.now().toString(),
-                              f1: widget.oldSummaUzs,
-                              f2: widget.oldSummaUzs,
+                              f1: 0,
+                              f2: 0,
                               nSm: newTotalUzs,
                               nSmS: newTotalUsd,
                               st: 1,

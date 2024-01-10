@@ -42,11 +42,6 @@ class CacheService {
     preferences!.setString("saveDB", data);
   }
 
-  /// Save Username
-  static void name(String data) {
-    preferences!.setString("name", data);
-  }
-
   static void id(int data) {
     preferences!.setInt("id", data);
   }
@@ -80,7 +75,7 @@ class CacheService {
   }
 
   static String getName() {
-    String data = preferences!.getString("name") ?? '';
+    String data = preferences!.getString("saveClientName") ?? '';
     return data;
   }
   /// login

@@ -50,7 +50,7 @@ class _AddRevisionScreenState extends State<AddRevisionScreen> {
           actions: [
             IconButton(
               autofocus: true,
-              tooltip: ' izlash',
+              tooltip: 'izlash',
                 onPressed: ()async{
               final scanResult = await BarcodeScanner.scan(
                 options: const ScanOptions(
@@ -147,16 +147,7 @@ class _AddRevisionScreenState extends State<AddRevisionScreen> {
           stream: productBloc.getProductStream,
           builder: (context, snapshot) {
             if(snapshot.hasData){
-              int totalSumUzs = 0;
-              num totalSumUsd = 0;
               var data = snapshot.data!;
-              for(int i = 0; i<data.length;i++){
-                if (data[i].snarhi != 0) {
-                  totalSumUzs += data[i].snarhi.toInt();
-                } else {
-                  totalSumUsd += data[i].snarhiS;
-                }
-              }
               return Stack(
                 children: [
                   ListView.builder(
@@ -193,9 +184,9 @@ class _AddRevisionScreenState extends State<AddRevisionScreen> {
                                   ),
                                 ),
                                 SizedBox(
-                                  width: 100,
+                                  width: 100.h,
                                   child: int.parse(data[index].osoni.toString().replaceAll(".", "")) %10 == 0?Text(
-                                    "${data[index].rsoni.toInt()} qoldiq",
+                                    "${data[index].osoni.toInt()} qoldiq",
                                     textAlign: TextAlign.end,
                                     style: AppStyle.medium(AppColor.black),
                                   ):Text("${data[index].osoni} qoldiq", textAlign: TextAlign.end, style: AppStyle.medium(AppColor.black),),
@@ -212,7 +203,7 @@ class _AddRevisionScreenState extends State<AddRevisionScreen> {
                       builder: (BuildContext context, ScrollController scrollController){
                         return ClipRRect(
                             borderRadius: const BorderRadius.only(topLeft: Radius.circular(5),topRight: Radius.circular(25)),
-                            child: CartScreen(scrollController: scrollController, totalSumUzs: totalSumUzs, totalSumUsd: totalSumUsd, count: count, oldSummaUzs: oldSummaUzs, oldSummaUsd: oldSummaUsd,));
+                            child: CartScreen(scrollController: scrollController,count: count, oldSummaUzs: oldSummaUzs, oldSummaUsd: oldSummaUsd,));
                       })
                 ],
               );
