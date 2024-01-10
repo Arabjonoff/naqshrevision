@@ -92,6 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
             onTap: ()async{
               HttpResult res = await _repository.login(_controllerName.text, _controllerPassword.text, _controllerBase.text);
               if(res.result["status"] == true){
+                CacheService.id(res.result["id"]);
                 CacheService.saveToken(res.result["jwt"]);
                 CacheService.saveClientName(_controllerName.text);
                 CacheService.savePassword(_controllerPassword.text);

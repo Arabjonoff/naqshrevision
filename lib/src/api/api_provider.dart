@@ -5,8 +5,9 @@ import 'package:naqshrevision/src/model/http_result.dart';
 import 'package:naqshrevision/src/model/revision/revision_model.dart';
 import 'package:naqshrevision/src/utils/cache.dart';
 String _baseUrl = "https://naqshsoft.site/";
+int userId = CacheService.getId();
+String db = CacheService.getDb();
 class ApiProvider{
-  String db = CacheService.getDb();
   int year = DateTime.now().year;
   int month = DateTime.now().month;
   int day = DateTime.now().day;
@@ -110,7 +111,7 @@ class ApiProvider{
   }
 
   Future<HttpResult> getRevision()async{
-    String url = "${_baseUrl}rev?DB=$db&YIL=$year&OY=$month&ID_SKL=1";
+    String url = "${_baseUrl}rev?DB=$db&YIL=$year&OY=$month&ID_SKL=1&ID_AGENT=$userId";
     return await _getRequest(url);
   }
 

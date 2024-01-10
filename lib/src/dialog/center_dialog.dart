@@ -11,6 +11,7 @@ import 'package:naqshrevision/src/model/revision/revision_model.dart';
 import 'package:naqshrevision/src/theme/colors.dart';
 import 'package:naqshrevision/src/theme/fonts.dart';
 import 'package:naqshrevision/src/ui/home/home_screen.dart';
+import 'package:naqshrevision/src/ui/login/login_screen.dart';
 
 import '../bloc/cart/cart_bloc.dart';
 
@@ -328,7 +329,12 @@ class CenterDialog {
                   SizedBox(width: 16.w,),
                   Expanded(
                     child: GestureDetector(
-                      onTap: (){},
+                      onTap: (){
+                        Navigator.popUntil(context, (route) => route.isFirst);
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx){
+                          return const LoginScreen();
+                        }));
+                      },
                       child: Container(
                         alignment: Alignment.center,
                         height: 45,

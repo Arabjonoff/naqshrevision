@@ -155,7 +155,7 @@ class _CartScreenState extends State<CartScreen> {
                               izoh: '',
                               sm: totalSumUzs,
                               smS: totalSumUsd,
-                              idHodim: CacheService.getId(),
+                              idHodim:CacheService.getId(),
                               pr: 0,
                               yil: DateTime.now().year.toString(),
                               oy: DateTime.now().month.toString(),
