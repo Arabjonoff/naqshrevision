@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naqshrevision/src/api/repository.dart';
+import 'package:naqshrevision/src/dialog/center_dialog.dart';
 import 'package:naqshrevision/src/model/http_result.dart';
 import 'package:naqshrevision/src/theme/colors.dart';
 import 'package:naqshrevision/src/theme/fonts.dart';
@@ -90,6 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
           const Spacer(),
           GestureDetector(
             onTap: ()async{
+              CenterDialog.showCircularDialog(context);
               HttpResult res = await _repository.login(_controllerName.text, _controllerPassword.text, _controllerBase.text);
               if(res.result["status"] == true){
                 CacheService.id(res.result["id"]);
@@ -101,6 +103,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx){
                   return const HomeScreen();
                 }));
+              }
+              else{
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      backgroundColor: Colors.red,
+                        content: Text("Ma'lumotlar xato kiritildi")));
               }
             },
             child: Container(
