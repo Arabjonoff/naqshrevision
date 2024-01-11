@@ -16,6 +16,7 @@ import 'package:naqshrevision/src/model/revision/revision_model.dart';
 import 'package:naqshrevision/src/theme/fonts.dart';
 import 'package:naqshrevision/src/ui/home/revesion/add_revision_screen.dart';
 import 'package:naqshrevision/src/ui/home/revision_detail/revision_detail_screen.dart';
+import 'package:naqshrevision/src/ui/home/update_revision/update_revision.dart';
 import 'package:naqshrevision/src/utils/cache.dart';
 
 import '../../theme/colors.dart';
@@ -84,27 +85,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Expanded(
                                   child: Column(
                                     children: [
-                                      SlidableAction(
-                                        onPressed: (i)async{
-                                          HttpResult res = await _repository.deleteRevision(data[index].id);
-                                          CenterDialog.showCircularDialog(context);
-                                          if(res.result['status'] == true){
-                                            await revisionBloc.getAllRevision();
-                                            Navigator.pop(context);
-                                          }
-                                          else{
-                                            Navigator.pop(context);
-                                          }
-                                        },
-                                        backgroundColor: AppColor.card,
-                                        icon: Icons.delete,
-                                        borderRadius: const BorderRadius.only(topLeft: Radius.circular(5),topRight: Radius.circular(5)),
-                                      ),
-                                      Container(
-                                        width: MediaQuery.of(context).size.width,
-                                        height: 1,
-                                        color: AppColor.primary,
-                                      ),
+                                      // SlidableAction(
+                                      //   onPressed: (i)async{
+                                      //     Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                                      //       return UpdateRevisionScreen(data: data,);
+                                      //     }));
+                                      //   },
+                                      //   backgroundColor: AppColor.card,
+                                      //   icon: Icons.edit,
+                                      //   borderRadius: const BorderRadius.only(topLeft: Radius.circular(5),topRight: Radius.circular(5)),
+                                      // ),
                                       SlidableAction(
                                         onPressed: (i)async{
                                           await _repository.lockRevision(data[index].id, 1);
@@ -150,9 +140,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     SizedBox(height: 8.h,),
-                                    Row(
+                                    Wrap(
                                       children: [
-                                        Text("Izoh : ",style: AppStyle.medium(AppColor.black)),
                                         Text(data[index].izoh,style: AppStyle.medium(AppColor.black),),
                                       ],
                                     ),
@@ -166,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             Text("№${data[index].ndoc}",style: AppStyle.medium(AppColor.red),),
                                           ],
                                         ) : Text("№${data[index].ndoc}",style: AppStyle.medium(AppColor.black),),
-                                        Text(data[index].vaqt.substring(10),style: AppStyle.medium(AppColor.black),),
+                                        Text(data[index].vaqt,style: AppStyle.medium(AppColor.black),),
                                       ],
                                     ),
                                     SizedBox(height: 12.h,),
@@ -183,6 +172,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                       children: [
                                         Text("${priceFormat.format(data[index].nSm)} so'm | ",style: AppStyle.medium(AppColor.red),),
                                         Text("${priceFormatUsd.format(data[index].nSmS)} \$",style: AppStyle.medium(AppColor.red),),
+                                      ],
+                                    ),
+                                    SizedBox(height: 12.h,),
+                                    Text("Faqr summa:",style: AppStyle.medium(AppColor.black),),
+                                    Wrap(
+                                      children: [
+                                        Text("${priceFormat.format(data[index].sm - data[index].nSm)} so'm | ",style: AppStyle.medium(Colors.yellow),),
+                                        Text("${priceFormatUsd.format(data[index].smS - data[index].nSmS)} \$",style: AppStyle.medium(Colors.yellow),),
                                       ],
                                     ),
                                     SizedBox(height: 12.h,),

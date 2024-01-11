@@ -31,7 +31,7 @@ class _AddRevisionScreenState extends State<AddRevisionScreen> {
   }
   final Repository _repository =Repository();
   num price = 0,count = 0;
-  int priceUsd = 0,idPrice = 0;
+  int priceUsd = 0,idPrice = 0,barCodeId = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,9 +50,9 @@ class _AddRevisionScreenState extends State<AddRevisionScreen> {
           actions: [
             IconButton(
               autofocus: true,
-              tooltip: 'izlash',
                 onPressed: ()async{
-              final scanResult = await BarcodeScanner.scan(
+                  setState(() => barCodeId = 0);
+                  final scanResult = await BarcodeScanner.scan(
                 options: const ScanOptions(
                   strings: {
                     'cancel': "Bekor qilish",
@@ -63,7 +63,6 @@ class _AddRevisionScreenState extends State<AddRevisionScreen> {
               );
               List<BarcodeResult> barcode = await _repository.getBarcode();
               List<BaseListResult> baseList = await _repository.getProductBase('');
-
               for (int i = 0; i < baseList.length; i++) {
                 price = 0;
                 priceUsd = 0;
@@ -75,6 +74,7 @@ class _AddRevisionScreenState extends State<AddRevisionScreen> {
                 }
                 for (int j = 0; j < barcode.length; j++) {
                   if (scanResult.rawContent == barcode[j].shtr && barcode[j].idSkl2 == baseList[i].idSkl2) {
+                    setState(() => barCodeId = 1);
                     CenterDialog.showCenterDialog(
                         context,
                         BaseListResult(
@@ -138,6 +138,9 @@ class _AddRevisionScreenState extends State<AddRevisionScreen> {
                   }
                 }
               }
+                  if(barCodeId <1){
+                    CenterDialog.successBarcodeDialog(context, "");
+                  }
             }, icon:const Icon(Icons.qr_code_scanner)),
             // IconButton(onPressed: (){}, icon:const Icon(Icons.search_rounded))
           ],

@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:naqshrevision/src/api/repository.dart';
 import 'package:naqshrevision/src/model/baselist_model.dart';
 import 'package:naqshrevision/src/model/revision/revision_model.dart';
@@ -75,7 +74,7 @@ class CenterDialog {
                           }
                           else{
                             try{
-                              controllerTotal.text = priceUsd==0?priceFormat.format(int.parse(i)*price.toInt()):priceFormatUsd.format(double.parse(i)*price);
+                              controllerTotal.text = priceUsd==0?priceFormat.format(double.parse(i)*price.toInt()):priceFormatUsd.format(double.parse(i)*price);
                             }catch(_){
                               controllerTotal.text = '';
                             }
@@ -359,5 +358,41 @@ class CenterDialog {
       );
     });
   }
+
+  static void successBarcodeDialog(BuildContext context,String text) {
+    showDialog(
+        context: context,
+        builder: (builder) {
+          return AlertDialog(
+            elevation: 0,
+            backgroundColor: AppColor.card,
+            title: Text(
+              "Xatolik!",
+              style: AppStyle.large(AppColor.black),
+            ),
+            content: SizedBox(
+              height: 200,
+              child: Column(
+                children: [
+                  Icon(Icons.qr_code_scanner,color: Colors.red,),
+                  SizedBox(
+                    height: 12.h,
+                  ),
+                  Text(
+                    'Bunday SHTRIX kodi mavjud emas.',
+                    style: AppStyle.medium(AppColor.black),
+                    textAlign: TextAlign.center,
+                  ),
+                  const Spacer(),
+                  TextButton(onPressed: (){
+                    Navigator.pop(context);
+                  }, child: Text("Tushunarli",style: AppStyle.medium(AppColor.green),))
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
 }
 // PATCH  {"ID":111,"PROV":1}  rev0_prov?DB=002&JWT=""
