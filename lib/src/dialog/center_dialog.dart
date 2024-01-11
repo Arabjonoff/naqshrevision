@@ -374,7 +374,7 @@ class CenterDialog {
               height: 200,
               child: Column(
                 children: [
-                  Icon(Icons.qr_code_scanner,color: Colors.red,),
+                   Icon(Icons.qr_code_scanner,color: Colors.red,size: 70.w,),
                   SizedBox(
                     height: 12.h,
                   ),
