@@ -23,15 +23,15 @@ class AddRevisionScreen extends StatefulWidget {
 
 class _AddRevisionScreenState extends State<AddRevisionScreen> {
   ScrollController scrollController = ScrollController();
-  bool _lastScroll = false;
+  TextEditingController commentController = TextEditingController();
   @override
   void initState() {
     productBloc.getAllProduct('');
     super.initState();
   }
   final Repository _repository =Repository();
-  num price = 0,count = 0,oldSummaUzs = 0,oldSummaUsd =0;
-  int priceUsd = 0, brocdeId = 0,idPrice = 0;
+  num price = 0,count = 0;
+  int priceUsd = 0,idPrice = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -142,6 +142,26 @@ class _AddRevisionScreenState extends State<AddRevisionScreen> {
             // IconButton(onPressed: (){}, icon:const Icon(Icons.search_rounded))
           ],
           backgroundColor: AppColor.background,
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(kTextTabBarHeight),
+            child: Container(
+              padding: EdgeInsets.only(left: 16.w,right: 16,bottom: 8),
+              width: MediaQuery.of(context).size.width,
+              height: 50,
+              child: TextField(
+                controller: commentController,
+                onChanged: (i){
+                  commentController.text = commentController.text;
+                  setState(() {});
+                },
+                style: const TextStyle(color: Colors.white),
+                decoration: const InputDecoration(
+                  hintText: "Izoh yozing",
+                  hintStyle: TextStyle(color: Colors.grey)
+                ),
+              ),
+            ),
+          ),
         ),
         body: StreamBuilder<List<BaseListResult>>(
           stream: productBloc.getProductStream,
@@ -203,8 +223,8 @@ class _AddRevisionScreenState extends State<AddRevisionScreen> {
                       builder: (BuildContext context, ScrollController scrollController){
                         return ClipRRect(
                             borderRadius: const BorderRadius.only(topLeft: Radius.circular(5),topRight: Radius.circular(25)),
-                            child: CartScreen(scrollController: scrollController,count: count, oldSummaUzs: oldSummaUzs, oldSummaUsd: oldSummaUsd,));
-                      })
+                            child: CartScreen(scrollController: scrollController,count: count, comment: commentController.text,));
+                      }),
                 ],
               );
             }

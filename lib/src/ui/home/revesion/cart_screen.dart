@@ -17,10 +17,11 @@ import '../../../theme/colors.dart';
 import '../../../theme/fonts.dart';
 
 class CartScreen extends StatefulWidget {
-  final num count,oldSummaUzs,oldSummaUsd;
+  final num count;
+  final String comment;
   final ScrollController scrollController;
 
-  const CartScreen({super.key, required this.scrollController, required this.count, required this.oldSummaUzs, required this.oldSummaUsd});
+  const CartScreen({super.key, required this.scrollController, required this.count, required this.comment,});
 
   @override
   State<CartScreen> createState() => _CartScreenState();
@@ -152,7 +153,7 @@ class _CartScreenState extends State<CartScreen> {
                               id: 0,
                               sana: DateTime.now(),
                               ndoc: '999',
-                              izoh: '',
+                              izoh: widget.comment,
                               sm: totalSumUzs,
                               smS: totalSumUsd,
                               idHodim:CacheService.getId(),
