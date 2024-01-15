@@ -208,7 +208,7 @@ class _AddRevisionScreenState extends State<AddRevisionScreen> {
                                 ),
                                 SizedBox(
                                   width: 100.h,
-                                  child: int.parse(data[index].osoni.toString().replaceAll(".", "")) %10 == 0?Text(
+                                  child: double.parse(data[index].osoni.toString().replaceAll(".", "")) %10 == 0?Text(
                                     "${data[index].osoni.toInt()} qoldiq",
                                     textAlign: TextAlign.end,
                                     style: AppStyle.medium(AppColor.black),

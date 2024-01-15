@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,6 +14,7 @@ import 'package:naqshrevision/src/theme/fonts.dart';
 import 'package:naqshrevision/src/ui/home/home_screen.dart';
 import 'package:naqshrevision/src/ui/login/login_screen.dart';
 import 'package:naqshrevision/src/utils/cache.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../bloc/cart/cart_bloc.dart';
 
@@ -331,14 +334,26 @@ class CenterDialog {
                     child: GestureDetector(
                       onTap: ()async{
                         Repository r = Repository();
+                        SharedPreferences p = await SharedPreferences.getInstance();
+                        p.remove('saveDB');
                         await CacheService.clear();
                         await r.clearProduct();
                         await r.clearBarcode();
                         await r.clearSkl2Base();
+                        if(Platform.isAndroid){
+                          SystemNavigator.pop();
+                        }else{
+                          exit(0);
+                        }
                         Navigator.popUntil(context, (route) => route.isFirst);
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx){
-                          return const LoginScreen();
-                        }));
+                        Navigator.pushReplacement(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (context) {
+                              return const LoginScreen();
+                            },
+                          ),
+                        );
                       },
                       child: Container(
                         alignment: Alignment.center,

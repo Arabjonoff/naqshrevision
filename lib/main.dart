@@ -7,7 +7,7 @@ import 'package:naqshrevision/src/utils/cache.dart';
 
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
-  await CacheService.init();
+  CacheService.init();
   await ThemePreferences.init();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const MyApp());
